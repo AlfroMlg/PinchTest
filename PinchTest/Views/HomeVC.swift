@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  HomeVC.swift
 //  PinchTest
 //
 //  Created by Alfredo Martin-Hinojal Acebal on 7/2/22.
@@ -13,17 +13,16 @@ import RxCocoa
 class HomeVC: UIViewController {
     
     // MARK: - SubViews
-    @IBOutlet weak var tracksVCView: UIView!
-    
+    @IBOutlet weak var albumsView: UIView!
     private lazy var albumsViewController: AlbumsTableViewVC = {
         // Load Storyboard
         let storyboard = UIStoryboard(name: "Home", bundle: Bundle.main)
         
         // Instantiate View Controller
-        var viewController = storyboard.instantiateViewController(withIdentifier: "TracksTableViewVC") as! AlbumsTableViewVC
+        var viewController = storyboard.instantiateViewController(withIdentifier: "AlbumsTableViewVC") as! AlbumsTableViewVC
         
         // Add View Controller as Child View Controller
-        self.add(asChildViewController: viewController, to: tracksVCView)
+        self.add(asChildViewController: viewController, to: albumsView)
         viewController.setupBinding()
         return viewController
     }()
@@ -37,7 +36,6 @@ class HomeVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.addBlurArea(area: self.view.frame, style: .dark)
         setupBindings()
         getData()
     }
@@ -53,15 +51,14 @@ class HomeVC: UIViewController {
         
         // binding loading to vc
         
-        homeViewModel.loading
-            .bind(to: self.rx.isAnimating).disposed(by: disposeBag)
+        homeViewModel.loading.bind(to: self.rx.isAnimating).disposed(by: disposeBag)
         
         
         // observing errors to show
         
         homeViewModel
             .error
-            .observeOn(MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { (error) in
                 switch error {
                 case .internetError(let message):
@@ -75,7 +72,7 @@ class HomeVC: UIViewController {
         // binding tracks to track container
         homeViewModel
             .albums
-            .observeOn(MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .bind(to: albumsViewController.albums)
             .disposed(by: disposeBag)
        
