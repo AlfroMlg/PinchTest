@@ -7,15 +7,6 @@
 
 import UIKit
 extension UIView {
-    func addBlurArea(area: CGRect, style: UIBlurEffect.Style) {
-        let effect = UIBlurEffect(style: style)
-        let blurView = UIVisualEffectView(effect: effect)
-        let container = UIView(frame: area)
-        blurView.frame = CGRect(x: 0, y: 0, width: area.width, height: area.height)
-        container.addSubview(blurView)
-        container.alpha = 0.9
-        self.insertSubview(container, at: 1)
-    }
     
     @IBInspectable public var borderColor: UIColor? {
         get {
@@ -104,7 +95,6 @@ extension UIView {
         }
     }
     
-    // src : https://medium.com/@sdrzn/adding-gesture-recognizers-with-closures-instead-of-selectors-9fb3e09a8f0b
     fileprivate struct AssociatedObjectKeys {
         static var tapGestureRecognizer = "MediaViewerAssociatedObjectKey_mediaViewer"
     }

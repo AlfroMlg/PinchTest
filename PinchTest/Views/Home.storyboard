@@ -74,11 +74,22 @@
                     </view>
                     <connections>
                         <outlet property="albumsTableView" destination="UB2-Ud-BBM" id="kpf-lg-fAZ"/>
+                        <segue destination="hcQ-3Q-0RK" kind="show" identifier="Photos" id="nDG-2V-3iO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ohn-xX-4zA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5953" y="19"/>
+        </scene>
+        <!--Photos-->
+        <scene sceneID="BQ9-Vx-djm">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Photos" id="hcQ-3Q-0RK" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="FIf-Bt-6gf"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0af-WL-QPa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6759" y="51"/>
         </scene>
     </scenes>
 </document>

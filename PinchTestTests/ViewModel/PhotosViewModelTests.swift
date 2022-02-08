@@ -1,5 +1,5 @@
 //
-//  PhotosViewModel.swift
+//  PhotosViewModelTests.swift
 //  PinchTestTests
 //
 //  Created by Alfredo Martin-Hinojal Acebal on 8/2/22.
@@ -7,13 +7,15 @@
 
 import XCTest
 @testable import PinchTest
-class PhotosViewModel: XCTestCase {
+class PhotosViewModelTests: XCTestCase {
     var sut = PhotosViewModel(networkManager: NetworkManager<DataType>())
     var mockUrlSession = MockURLSession()
-    let userID = 1
+    let albumId = 1
     let id = 1
-    let title: String = "Test album"
-    lazy var responseDict : [String : Any] = ["id":id, "userId":userID, "title":title]
+    let title = "Photo title"
+    let url = "Photo url"
+    let thumbnailURL = "thumbnail Url"
+    lazy var responseDict : [String : Any] = ["albumId" : albumId, "id" : id, "title" : title, "url" : url, "thumbnailUrl" : thumbnailURL]
 
     override func setUpWithError() throws {
         sut.networkManager.session = mockUrlSession
@@ -32,37 +34,37 @@ class PhotosViewModel: XCTestCase {
         let responseData = try! JSONSerialization.data(withJSONObject: jsonArray, options: [])
         
         //fetch data
-        sut.callToData(dataType: DataType.albums(page: 1), result: [Album].self)
+        sut.callToData(dataType: DataType.photos(userId: 1), result: [Photos].self)
         mockUrlSession.completionHandler?(responseData, nil ,nil)
         
         //then
         XCTAssertNotNil(mockUrlSession.completionHandler)
     }
     
-    func testUserDataRequest_CreatesAlbum() {
+    func testUserDataRequest_CreatesPhotoAlbum() {
         //when
-        //create fake album
-        var testAlbum : [Album]?
+        //create fake photo album
+        var testPhotoAlbum : [Photos]?
         
         var jsonArray = [[String: Any]]()
         jsonArray.append(responseDict)
 
         let responseData = try! JSONSerialization.data(withJSONObject: jsonArray, options: [])
         
-        let completion = { (results:Result<[Album], Error>) in
+        let completion = { (results:Result<[Photos], Error>) in
             switch results {
-            case .success(let album):
-                testAlbum = album
+            case .success(let photos):
+                testPhotoAlbum = photos
             case .failure(let error):
                 XCTFail(error.localizedDescription)
             }
         }
         //fetch data
-        sut.networkManager.request(route: DataType.albums(page: 1), completion: completion)
+        sut.networkManager.request(route: DataType.photos(userId: 1), completion: completion)
         mockUrlSession.completionHandler?(responseData, nil ,nil)
         
         //then
-        XCTAssertNotNil(testAlbum)
+        XCTAssertNotNil(testPhotoAlbum)
     }
 
     func testPerformanceExample() throws {

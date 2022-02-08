@@ -12,22 +12,18 @@ import RxCocoa
 class AlbumsTableViewVC: UIViewController {
     
     
-    @IBOutlet private weak var albumsTableView: UITableView!
+    @IBOutlet internal weak var albumsTableView: UITableView!
     
     public var albums = PublishSubject<[Album]>()
     
     private let disposeBag = DisposeBag()
     
-    private lazy var refreshControl: UIRefreshControl = {
-            let refreshControl = UIRefreshControl()
-            return refreshControl
-    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    func setupBinding(){
+    func setupBinding() {
         
         albumsTableView.register(UINib(nibName: "AlbumCell", bundle: nil), forCellReuseIdentifier: String(describing: AlbumCell.self))
         
@@ -46,6 +42,23 @@ class AlbumsTableViewVC: UIViewController {
                     cell.layer.transform = CATransform3DIdentity
                 }, completion: nil)
             })).disposed(by: disposeBag)
+        
+        albumsTableView.rx.itemSelected
+            .subscribe(onNext: { indexPath in
+                guard let cell = self.albumsTableView.cellForRow(at: indexPath) as? AlbumCell else {
+                    return
+                }
+                self.performSegue(withIdentifier: "Photos", sender: cell)
+            }).disposed(by: disposeBag)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let cell = sender as? AlbumCell else {
+            return
+        }
+        if segue.identifier == "Photos", let albumDetail = segue.destination as? PhotosVC {
+            albumDetail.userId = cell.userId
+            albumDetail.id = cell.id
+        }
     }
 }
-

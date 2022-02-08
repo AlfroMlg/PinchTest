@@ -1,5 +1,5 @@
 //
-//  PinchTestTests.swift
+//  NetworkManagerTests.swift
 //  PinchTestTests
 //
 //  Created by Alfredo Martin-Hinojal Acebal on 7/2/22.
@@ -31,9 +31,9 @@ class NetworkManagerTests: XCTestCase {
         super.tearDown()
     }
     
-    func testUserDataRequest_CreatesUser() {
+    func testUserDataRequest_CreatesAlbum() {
         //when
-        //create fake user
+        //create fake album
         var testAlbum : [Album]?
         
         var jsonArray = [[String: Any]]()
@@ -103,30 +103,30 @@ class NetworkManagerTests: XCTestCase {
         XCTAssertNotNil(theError)
     }
 }
-extension NetworkManagerTests {
-    class MockURLSession : URLSessionProtocol {
+
+class MockURLSession : URLSessionProtocol {
+    
+    func dataTask(with request: URLRequest, completionHandler: @escaping URLSessionProtocol.DataTaskResult) -> URLSessionDataTaskProtocol {
+        self.request = request
+        self.completionHandler = completionHandler
         
-        func dataTask(with request: URLRequest, completionHandler: @escaping URLSessionProtocol.DataTaskResult) -> URLSessionDataTaskProtocol {
-            self.request = request
-            self.completionHandler = completionHandler
-            
-            return dataTask
-        }
-        
-        typealias Handler = (Data?, URLResponse?, Error?)
-            -> Void
-        var completionHandler: Handler?
-        var request: URLRequest?
-        var dataTask = MockUrlSessionDataTask()
-        
+        return dataTask
     }
     
-    class MockUrlSessionDataTask : URLSessionDataTask {
-        var resumeGotCalled = false
-        
-        override func resume() {
-            resumeGotCalled = true
-        }
+    typealias Handler = (Data?, URLResponse?, Error?)
+        -> Void
+    var completionHandler: Handler?
+    var request: URLRequest?
+    var dataTask = MockUrlSessionDataTask()
+    
+}
+
+class MockUrlSessionDataTask : URLSessionDataTask {
+    var resumeGotCalled = false
+    
+    override func resume() {
+        resumeGotCalled = true
     }
 }
+
 

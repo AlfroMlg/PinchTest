@@ -1,25 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17150" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ypO-gk-UAO">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17122"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="s0d-6b-0kx">
+        <!--Photo DetailVC-->
+        <scene sceneID="PhJ-Ee-6MV">
             <objects>
-                <viewController id="Y6W-OH-hqX" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                <viewController id="ypO-gk-UAO" customClass="PhotoDetailVC" customModule="PinchTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CBu-4q-QXL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3FG-8I-gUA">
+                                <rect key="frame" x="0.0" y="114" width="414" height="345.5"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WDB-FH-mTS">
+                                <rect key="frame" x="0.0" y="44" width="414" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="Lfe-Io-voo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Wf1-qE-WpZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="WDB-FH-mTS" firstAttribute="top" secondItem="Wf1-qE-WpZ" secondAttribute="top" id="DpQ-hS-7UZ"/>
+                            <constraint firstItem="3FG-8I-gUA" firstAttribute="height" secondItem="CBu-4q-QXL" secondAttribute="width" multiplier="0.834821" id="FRt-wf-1lf"/>
+                            <constraint firstItem="3FG-8I-gUA" firstAttribute="top" secondItem="WDB-FH-mTS" secondAttribute="bottom" id="IdP-C3-L3y"/>
+                            <constraint firstItem="Wf1-qE-WpZ" firstAttribute="trailing" secondItem="3FG-8I-gUA" secondAttribute="trailing" id="OIh-1c-u4Q"/>
+                            <constraint firstItem="3FG-8I-gUA" firstAttribute="leading" secondItem="Wf1-qE-WpZ" secondAttribute="leading" id="UYz-pr-EEV"/>
+                            <constraint firstItem="WDB-FH-mTS" firstAttribute="leading" secondItem="Wf1-qE-WpZ" secondAttribute="leading" id="ZYY-AB-X7C"/>
+                            <constraint firstItem="Wf1-qE-WpZ" firstAttribute="trailing" secondItem="WDB-FH-mTS" secondAttribute="trailing" id="fTC-dH-RQG"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="9jp-iK-aDI"/>
+                    <connections>
+                        <outlet property="albumImage" destination="3FG-8I-gUA" id="Xw9-3k-qRW"/>
+                        <outlet property="albumTitle" destination="WDB-FH-mTS" id="SL2-hp-krP"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="syU-KM-ysm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="8589" y="69"/>
         </scene>
     </scenes>
     <resources>
